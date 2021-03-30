@@ -1,0 +1,158 @@
+/*
+Interfere Cascade is a MIDI composition spreadsheet editor.
+
+Copyright 2021 Abir Haque
+
+This file is part of Interfere Cascade.
+
+Interfere Cascade is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Interfere Cascade is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Interfere Cascade in the file labeled <LICENSE.txt>.  If not, see <https://www.gnu.org/licenses/>.
+*/
+public class DefaultStrings
+{
+    public static String[] getInstrumentList()
+    {
+        String[] instrumentList = 
+        {
+            "Piano Accoustic",
+            "Piano Bright",
+            "Piano Electric",
+            "Piano Honky-tonk",
+            "Piano Rhodes",
+            "Piano Chorused",
+            "Harpsichord",
+            "Clavinet",
+            "Celesta",
+            "Glockenspiel",
+            "Music box",
+            "Vibraphone",
+            "Marimba",
+            "Xylophone",
+            "Bells Tubular",
+            "Dulcimer",
+            "Organ Hammond",
+            "Organ Percussive",
+            "Organ Rock",
+            "Organ Church",
+            "Organ Reed",
+            "Accordion",
+            "Harmonica",
+            "Accordion Tango",
+            "Guitar Acoustic Nylon",
+            "Guitar Acoustic Steel",
+            "Guitar Electric Jazz",
+            "Guitar     Electric Cleen",
+            "Guitar     Electric Muted",
+            "Guitar Overdriven",
+            "Guitar Distorted",
+            "Guitar Harmonics",
+            "Bass Acoustic",
+            "Bass Electric Finger",
+            "Bass Electric Pick",
+            "Bass Fretless",
+            "Bass Slap 1",
+            "Bass Slap 2",
+            "Bass Synth 1",
+            "Bass Synth 2",
+            "Violin",
+            "Viola",
+            "Cello",
+            "Contrabass",
+            "Strings Tremelo",
+            "Strings Pizzacato",
+            "Harp",
+            "Timpani",
+            "String Ensemble 1",
+            "String Ensemble 1",
+            "Strings Synth 1",
+            "Strings Synth 2",
+            "Voices Aahs",
+            "Voice Oohs",
+            "Voice Synth",
+            "Orchestra Hit",
+            "Trumpet",
+            "Trombone",
+            "Tuba",
+            "Trumpet Muted",
+            "Horn French",
+            "Brass Section",
+            "Brass Synth 1",
+            "Brass Synth 2",
+            "Sax Soprano",
+            "Sax Alto",
+            "Sax Tenor",
+            "Sax Baritone",
+            "Oboe",
+            "Horn English",
+            "Bassoon",
+            "Clarinet",
+            "Piccolo",
+            "Flute",
+            "Recorder",
+            "Flute Pan",
+            "Bottle Blow",
+            "Shakuhachi",
+            "Whistle",
+            "Ocarina",
+            "Lead Square",
+            "Lead Sawtooth",
+            "Lead Calliope",
+            "Lead Chiffer",
+            "Lead Charang",
+            "Lead Voice",
+            "Lead Fifths",
+            "Lead Brass",
+            "Pad New Age",
+            "Pad Warm",
+            "Pad Polysynth",
+            "Pad Choir",
+            "Pad Bowed",
+            "Pad Metallic",
+            "Pad Halo",
+            "Pad Sweep",
+            "FX Rain",
+            "FX Soundtrack",
+            "FX Crystal",
+            "FX Atmosphere",
+            "FX Brightness",
+            "FX Goblins",
+            "FX Echoes",
+            "FX Sci-fi",
+            "Sitar",
+            "Banjo",
+            "Shamisen",
+            "Koto",
+            "Kalimba",
+            "Bagpipe",
+            "Fiddle",
+            "Shana",
+            "Bell Tinkle",
+            "Agogo",
+            "Drums Steel",
+            "Woodblock",
+            "Drum Taiko",
+            "Tom Melodic",
+            "Drum Synth",
+            "Cymbal Reverse",
+            "Guitar Fret",
+            "Breath",
+            "Seashore",
+            "Tweet",
+            "Ring",
+            "Helicopter",
+            "Applause",
+            "Gunshot"
+        };
+        return instrumentList;
+    }
+}

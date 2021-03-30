@@ -20,8 +20,11 @@ along with Interfere Cascade in the file labeled <LICENSE.txt>.  If not, see <ht
 */
 import java.io.*;
 import java.util.*;
+import javax.swing.*;
 import javax.sound.midi.*; 
 import javax.sound.sampled.*;
+import java.awt.*;
+import java.awt.event.*;
 public class MusicPlayer
 {
     private static Sequencer sequencer;
