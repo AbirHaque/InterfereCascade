@@ -40,7 +40,7 @@ public class GUILoader
     private static DefaultTableModel model;
     private static File currentFile = new File("");
     private static int deltaMillisecondsCMD;
-    private static String version = "0.0.2";
+    private static String version = "0.0.3";
     private static boolean isScrolling = false;
     private static Clipboard clipboard;
     private static KeyStroke copy;

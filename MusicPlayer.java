@@ -204,6 +204,139 @@ public class MusicPlayer
                 }
             } 
         }
+        //Read channel 16 column
+        ArrayList<String> trackNotes = new ArrayList<String>();
+        for (int currentNoteIndex = 1; currentNoteIndex < totalNotes; currentNoteIndex++)
+        {
+            if (csvNotes.get(currentNoteIndex).get(tracks).equals(""))
+            {
+                csvNotes.get(currentNoteIndex).set(tracks, "|");
+            }
+            if (csvNotes.get(currentNoteIndex).get(tracks).contains("|"))
+            {
+                trackNotes.add("-1");
+            }
+            else
+            {
+                if (csvNotes.get(currentNoteIndex).get(tracks).contains("-")||csvNotes.get(currentNoteIndex).get(tracks).contains("#")||csvNotes.get(currentNoteIndex).get(tracks).contains("b"))
+                {
+                    String noteCode = csvNotes.get(currentNoteIndex).get(tracks);
+                    Map<String,Integer> midiNotes = new HashMap<String,Integer>();
+                        midiNotes.put("C",0);
+                        midiNotes.put("D",2);
+                        midiNotes.put("E",4);
+                        midiNotes.put("F",5);
+                        midiNotes.put("G",7);
+                        midiNotes.put("A",9);
+                        midiNotes.put("B",11);
+                    if (noteCode.contains("-"))
+                    {
+                        String[] splitNote = noteCode.split("-");
+                        int midiValue = midiNotes.get(splitNote[0])+(12*(2+Integer.valueOf(splitNote[1])));
+                        trackNotes.add(String.valueOf(midiValue));
+                    }
+                        if (noteCode.contains("#"))
+                    {
+                        String[] splitNote = noteCode.split("#");
+                        int midiValue = midiNotes.get(splitNote[0])+(12*(2+Integer.valueOf(splitNote[1])))+1;
+                        trackNotes.add(String.valueOf(midiValue));
+                    }
+                    if (noteCode.contains("b"))
+                    {
+                        String[] splitNote = noteCode.split("b");
+                        int midiValue = midiNotes.get(splitNote[0])+(12*(2+Integer.valueOf(splitNote[1])))-1;
+                        trackNotes.add(String.valueOf(midiValue));
+                     }
+                }
+                else
+                {
+                    if(csvNotes.get(currentNoteIndex).get(tracks).contains("*"))
+                    {
+                        String command = csvNotes.get(currentNoteIndex).get(tracks);
+                        command = command.substring(command.indexOf("*")+1);
+                        int deltaSleep = 1000/(((tempo+10)*8)/GUILoader.getDeltaMillisecondsCMD());
+                        if ((currentNoteIndex*deltaSleep)%(deltaSleep*1000) == 0)
+                        {
+                            commands.put(currentNoteIndex*(deltaSleep-4), command);
+                        }
+                        else
+                        {
+                            commands.put(currentNoteIndex*deltaSleep, command);
+                        }
+                        trackNotes.add("0");
+                    }
+                    else
+                    {
+                        trackNotes.add(csvNotes.get(currentNoteIndex).get(tracks));
+                    }
+                }
+            }
+        }
+        Track track = sequence.createTrack();
+        int trackInstrument = Integer.valueOf(csvNotes.get(0).get(tracks));
+        if(trackInstrument>128)
+        {
+            trackInstrument = trackInstrument % 127;
+        }
+        track.add(new MidiEvent(new ShortMessage(192,/*tracks+1*/0,trackInstrument,0),1));
+        int volume = 100;
+        for (int i = 5; i < (4*(totalNotes-1))+5;i+=4)
+        {
+            if (trackNotes.size()>1 &&(trackNotes.get(0)).contains("~"))
+            {
+                String[] noteWithVolume = (trackNotes.get(0)).split("~");
+                volume = Integer.valueOf(noteWithVolume[1]);
+                trackNotes.set(0, noteWithVolume[0]);
+            }
+            int note = 0;
+            if (trackNotes.size()>1 )
+            {
+                note = Integer.valueOf(trackNotes.get(0));
+            }
+            if(trackNotes.size()>1 && (trackNotes.get(1)).equals("-1"))
+            {
+                if ((trackNotes.get(0)).equals("0"))
+                {
+                    track.add(new MidiEvent(new ShortMessage(144,/*tracks+1*/0,note,0),i));
+                    trackNotes.remove(0);
+                    while((trackNotes.get(0)).equals("-1"))
+                    {
+                        i+=4;
+                        trackNotes.remove(0);
+                    }
+                    track.add(new MidiEvent(new ShortMessage(128,/*tracks+1*/0,note,0),i+2));
+                }
+                else
+                {
+                    track.add(new MidiEvent(new ShortMessage(144,/*tracks+1*/0,note,volume),i));
+                    trackNotes.remove(0);
+                    while((trackNotes.get(0)).equals("-1"))
+                    {
+                        i+=4;
+                        trackNotes.remove(0);
+                    }
+                    track.add(new MidiEvent(new ShortMessage(128,/*tracks+1*/0,note,volume),i+2));
+                }
+            }
+            else
+            {
+                if (note !=0)
+                {
+                    if (note > 108)
+                    {
+                        note = note % 108;
+                    }
+                    track.add(new MidiEvent(new ShortMessage(144,/*tracks+1*/0,note,volume),i));
+                    track.add(new MidiEvent(new ShortMessage(128,/*tracks+1*/0,note,volume),i+2));
+                }
+                if(trackNotes.size()>1 )
+                {
+                    trackNotes.remove(0);
+                }
+            }
+        }
+        
+        //Set sequencer
         sequencer.setSequence(sequence);
         sequencer.setTempoInBPM(tempo);
     }
